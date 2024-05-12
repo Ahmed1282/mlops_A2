@@ -1,83 +1,53 @@
-# Airflow Data Extraction Pipeline
+# MLOps Assignment II: Apache Airflow Implementation
 
-This project automates the data extraction lifecycle by extracting data from specified URLs, transforming it, saving it, versioning the data with DVC, and versioning the code with Git.
+## Overview
 
-## How To Run?
+This repository contains the solution for Assignment II of the MLOps course, focusing on the implementation of Apache Airflow to automate data extraction, transformation, and version-controlled storage.
 
-1. Install Apache Airflow in a Python virtual environment:
+## Assignment Details
 
-```bash
-pip install apache-airflow
-    Set the Airflow environment variable to the root of this cloned repository:
+The objective of this assignment is to implement Apache Airflow to automate the following tasks:
 
-bash
+1. **Data Extraction:**
+   - Utilize `dawn.com` and `BBC.com` as data sources.
+   - Extract links from the landing pages.
+   - Extract titles and descriptions from articles displayed on the homepages.
 
-export AIRFLOW_HOME="root of this cloned repo"
+2. **Data Transformation:**
+   - Preprocess the extracted text data, ensuring it is cleaned and formatted appropriately for further analysis.
 
-    Initialize Airflow database:
+3. **Data Storage and Version Control:**
+   - Store the processed data on Google Drive.
+   - Implement Data Version Control (DVC) to track versions of the data, ensuring accurate recording of changes.
+   - Version metadata against each DVC push to the GitHub repository.
 
-bash
+4. **Apache Airflow DAG Development:**
+   - Write an Airflow DAG to automate the processes of extraction, transformation, and storage.
+   - Ensure effective handling of task dependencies and error management within the DAG.
 
-airflow db init
+## Solution Structure
 
-    Start the Airflow scheduler in a separate console:
+- **`airflow_dags/`:** Contains the Airflow DAG script (`mlops_assignment_ii.py`) responsible for automating the tasks.
+- **`data_preprocessing/`:** Documentation of the data preprocessing steps.
+- **`dvc_setup/`:** Documentation of the DVC setup, including instructions on versioning metadata against each push to the GitHub repository.
 
-bash
+## Usage
 
-airflow scheduler
+1. **Clone the Repository:**
+   **git clone https://github.com/Ahmed1282/mlops_A2.git**
 
-    Start the Airflow webserver and open the Airflow user interface at http://localhost:8080:
+2. **Setup Apache Airflow:**
+- Install Apache Airflow as per the official documentation: [Apache Airflow Documentation](https://airflow.apache.org/docs/)
+- Configure Airflow to recognize the `airflow_dags/` directory.
 
-bash
+3. **Run the Airflow DAG:**
+- Start the Airflow scheduler and webserver.
+- Navigate to the Airflow UI and trigger the DAG `mlops_assignment_ii`.
 
-airflow webserver -p 8080
+4. **Review Documentation:**
+- Refer to the `data_preprocessing/` and `dvc_setup/` directories for detailed documentation on data preprocessing and DVC setup.
 
-    Find the DAG with the name specified in the code and toggle the pause button to activate the DAG.
+## Contributors
 
-    Click the play button on the top right to manually trigger the DAG run.
-
-DAG Documentation
-Extract Task:
-
-Extracts data from a list of URLs (urls) using the extract_data function. Each URL is processed sequentially, and the extracted data is combined.
-Preprocess Task:
-
-Preprocesses the extracted data using the clean_data function. This task ensures that the text data is cleaned and formatted consistently.
-Save Task:
-
-Saves the preprocessed data to a CSV file specified by filename. The data is saved in the format of 'id', 'title', 'description', and 'source' columns.
-DVC Push Task:
-
-Adds the CSV file (data/extracted.csv) to the DVC repository using the dvc add command and pushes the changes to the remote Google Drive storage using dvc push.
-Git Push Task:
-
-Performs Git operations to push the changes made to the Git repository. It includes commands to pull changes, add files, commit changes, and push to the remote repository.
-DAG Execution Order
-
-The tasks are executed sequentially in the following order:
-
-python
-
-extract_task >> preprocess_task >> save_task >> dvc_push_task >> git_push_task
-
-The DAG is configured to run manually (schedule=None) and does not have a specific schedule for automatic execution.
-Encountered Challenges
-Challenge: Changing the Airflow configuration to detect DAGs present in locations other than the Airflow folder.
-
-Solution: Make a dags directory in your current folder, place DAGs there, and set the environment variable export AIRFLOW_HOME="current folder".
-Challenge: How to automate Git and DVC commands?
-
-Solution: Use the Python os library.
-Challenge: Dataset not being saved using Airflow.
-
-Solution: Use absolute paths for the dataset.
-Points To Note
-
-    Place all/any DAGs in the /dags folder for Airflow to detect.
-    Run airflow dags list to check if Airflow properly picks up DAGs from the DAG bag (DAG folder which contains all DAGs).
-
-vbnet
-
-
-You can copy this text block and paste it into your README.md file. Let me know if you need further assistance!
+- [Ahmed Baig](https://github.com/Ahmed1282)
 

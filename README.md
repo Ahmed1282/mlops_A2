@@ -34,7 +34,8 @@ The objective of this assignment is to implement Apache Airflow to automate the 
 ## Usage
 
 1. **Clone the Repository:**
-   **git clone https://github.com/Ahmed1282/mlops_A2.git**
+   ```bash
+   git clone https://github.com/Ahmed1282/mlops_A2.git
 
 2. **Setup Apache Airflow:**
 - Install Apache Airflow as per the official documentation: [Apache Airflow Documentation](https://airflow.apache.org/docs/)
